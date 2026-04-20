@@ -1,0 +1,56 @@
+:root
+{
+  scrollbar-width: none;
+  --background-color: #1F1E1E;
+  --text-color: #FFF;
+  --code-font-size: 15px;
+  --visited-link-color: #CD9DCD;
+  --link-color: #E3C0CA;
+  --max-paragraph-width: 110ch;
+}
+
+html
+{
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+}
+
+body
+{
+  margin: 0;
+}
+
+#subtitle
+{
+  font-style: italic;
+}
+
+header#introduction, main
+{
+  margin: 8px;
+}
+
+p
+{
+  text-align: left;
+  line-height: 1.6;
+  max-width: var(--max-paragraph-width);
+}
+
+a
+{
+  color: var(--link-color);
+}
+
+
+a:visited
+{
+  color: var(--visited-link-color);
+}
+
+abbr
+{
+  font-style: oblique;
+  color: chocolate;
+}

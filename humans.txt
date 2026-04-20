@@ -1,0 +1,9 @@
+/* AUTHOR */
+name: Riley
+From: France
+
+/* SITE */
+Last Update: 2025/06/24
+Language: English
+Doctype: HTML5
+IDE: nvim, ed, GIMP

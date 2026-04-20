@@ -1,0 +1,13 @@
+footer
+{
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  border-top: 1px solid #fff;
+}
+
+#legal
+{
+  margin: 8px;
+}
