@@ -1,0 +1,19 @@
+.language-ecmascript .keyword {
+  color: #d3869b;
+}
+
+.language-ecmascript .builtin {
+  color: #83a598;
+}
+
+.language-ecmascript .boolean {
+  color: #fabd2f;
+}
+
+.language-ecmascript .string {
+  color: #b8bb26;
+}
+
+.language-ecmascript .function {
+  color: #8ec07c;
+}

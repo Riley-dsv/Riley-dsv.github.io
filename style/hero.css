@@ -1,0 +1,16 @@
+.hero {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  column-gap: 2rem;
+  align-items: start;
+}
+
+.site-symbol {
+  width: 120px;
+  height: auto;
+  margin-top: 5.5rem;
+}
+
+.hero-content h1 {
+  margin-bottom: 1rem;
+}

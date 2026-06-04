@@ -2,10 +2,18 @@ User-Agent: *
 Disallow: /style
 Disallow: /script
 Disallow: /resources
+Disallow: /.git
 User-Agent: OAI-SearchBot
 Disallow: /
 User-Agent: GPTBot
 Disallow: /
 User-Agent: CCBot
 Disallow: /
-
+User-Agent: Amazonbot
+Disallow: /
+User-Agent: Bingbot
+Disallow: /
+User-Agent: Diffbot
+Disallow: /
+User-Agent: facebookexternalhit
+Disallow: /

@@ -1,56 +1,53 @@
-:root
+*
 {
-  scrollbar-width: none;
-  --background-color: #1F1E1E;
-  --text-color: #FFF;
-  --code-font-size: 15px;
-  --visited-link-color: #CD9DCD;
-  --link-color: #E3C0CA;
-  --max-paragraph-width: 110ch;
+  box-sizing: border-box;
 }
 
 html
 {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body
 {
   margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text);
+  font-family: Inter, "IBM Plex Sans", sans-serif;
+  line-height: 1.7;
 }
 
-#subtitle
+img
 {
-  font-style: italic;
-}
-
-header#introduction, main
-{
-  margin: 8px;
-}
-
-p
-{
-  text-align: left;
-  line-height: 1.6;
-  max-width: var(--max-paragraph-width);
+  max-width: 100%;
+  height: auto;
 }
 
 a
 {
-  color: var(--link-color);
+  color: var(--accent);
 }
 
-
-a:visited
+a:hover
 {
-  color: var(--visited-link-color);
+  text-decoration: none;
+}
+
+a:focus
+{
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+::selection
+{
+  background-color: var(--accent);
+  color: var(--background);
 }
 
 abbr
 {
   font-style: oblique;
-  color: chocolate;
+  color: var(--accent);
 }

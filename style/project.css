@@ -1,0 +1,52 @@
+.project-card
+{
+  padding: 2rem;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background-color: var(--surface);
+}
+
+.project-meta
+{
+  display: grid;
+
+  gap: 1.25rem;
+
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.project-meta div
+{
+  padding-left: 1rem;
+
+  border-left: 2px solid var(--border);
+}
+
+.project-meta dt
+{
+  margin-bottom: 0.3rem;
+
+  color: var(--accent);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.project-meta dd
+{
+  margin-left: 0;
+}
+
+.project-card ul
+{
+  padding-left: 1.5rem;
+}
+
+.project-card li
+{
+  margin-top: 0.4rem;
+}

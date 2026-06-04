@@ -1,0 +1,19 @@
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 2px solid var(--border);
+  color: #cfcfcf;
+  font-style: italic;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+blockquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  color: #a0a0a0;
+  font-size: 0.95rem;
+  font-style: normal;
+}

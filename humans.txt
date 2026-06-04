@@ -1,9 +1,28 @@
 /* AUTHOR */
-name: Riley
+Name: Riley
 From: France
+Languages: French, English
+Email: riley-dsv[at]gmail[dot]com
+Role: Owner and maintainer of the website.
+
+/* HELPERS */
+Name: Reister Ruby
+From: France
+Languages: French
+Role: Made the icon seen in the main page and used as favicon.
+
+Name: Mehr Ambre
+From: France
+Languages: French, English
+Email: ambre[dot]mehr[at]outlook[dot]com
+Role: Beta-Reader of my articles and feedback giver.
+Reviewed: 
+  - 
+
 
 /* SITE */
-Last Update: 2025/06/24
+Last Update: 2026/05/21
 Language: English
-Doctype: HTML5
-IDE: nvim, ed, GIMP
+Doctype: HTML
+Standards: HTML5, CSS3
+Software: nvim, imagemagick, dot / graphviz

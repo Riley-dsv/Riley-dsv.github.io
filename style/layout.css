@@ -1,0 +1,33 @@
+body
+{
+  max-width: 920px;
+
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem 1.5rem;
+}
+
+section
+{
+  margin-top: 5rem;
+}
+
+.project-card
+{
+  margin-top: 2rem;
+}
+
+footer
+{
+  margin-top: 6rem;
+  padding-top: 2rem;
+
+  border-top: 1px solid var(--border);
+}
+
+.note {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: #cfcfcf;
+  font-size: 0.95rem;
+}

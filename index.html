@@ -2,109 +2,218 @@
 <html lang="en">
 
 <head>
-  <title>Riley's website</title>
-  <link type="text/plain" rel="author" href="https://Riley-dsv.github.io/humans.txt">
-  <link rel="stylesheet" href="./style/main.css">
-  <link rel="stylesheet" href="./style/button.css">
-  <link rel="stylesheet" href="./style/summary.css">
-  <link rel="stylesheet" href="./style/footer.css">
+  <title>Riley — Software Developer</title>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link type="text/plain" rel="author" href="https://Riley-dsv.github.io/humans.txt">
+
+  <link rel="stylesheet" href="./style/colors.css">
+  <link rel="stylesheet" href="./style/main.css">
+  <link rel="stylesheet" href="./style/hero.css">
+  <link rel="stylesheet" href="./style/layout.css">
+  <link rel="stylesheet" href="./style/typography.css">
+  <link rel="stylesheet" href="./style/navigation.css">
+  <link rel="stylesheet" href="./style/project.css">
+  <link rel="stylesheet" href="./style/writing.css">
+  <link rel="stylesheet" href="./style/footer.css">
 </head>
 
 <body>
-  <header id="introduction">
-    <h1 id="top">Welcome there</h1>
-    <p id="subtitle">We do not have that much visitor here. Hope you'll find something you like here</p>
+  <header class="hero">
+    <img class="site-symbol" src="resources/images/image.png" alt="">
+    <div class="hero-content">
+      <p class="eyebrow">Riley / Software Developer</p>
+
+      <h1>Reliable systems, readable software.</h1>
+
+      <p class="subtitle">
+        Software Developer building distributed systems and backend architectures,
+        focusing on reliable and interoperable system design.
+      </p>
+    </div>
   </header>
-  <nav>
-    <p id="summary-title">Jump table</p>
-    <hr>
+
+  <nav class="jump-table" aria-labelledby="jump-table-title">
+    <p id="jump-table-title">On this page</p>
+
     <ol>
-      <li><a target="_self" href="#main">About me</a></li>
-      <li><a target="_self" href="#network">Connect with me</a></li>
-      <li>
-        <a target="_self" href="#project">My projects</a>
-        <ul>
-        </ul>
-      </li>
-      <li><a target="_self" href="#legal">Legal Notice</a></li>
+      <li><a href="#projects">Selected projects</a></li>
+      <li><a href="#writing">Selected articles</a></li>
+      <li><a href="#profile">About me</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#legal">Legal notice</a></li>
     </ol>
   </nav>
+
   <main>
-    <section id="main">
-      <h2>Who am I ?</h2>
-      <ul>
-        <li><b>Name</b>: Riley</li>
-        <li><b>Pronouns</b>: She/Her</li>
-        <li>Litterature fan, software developer and mathematics enjoyer</li>
-      </ul>
-      <a aria-hidden="true" target="_self" href="#" class="button-link unavailable">Books I Want to read</a>
-      <a aria-hidden="true" target="_self" href="#" class="button-link unavailable">Stuff I've found on the internet</a>
-    </section>
-    <hr>
-    <section>
-      <h2>Why this style ?</h2>
-      <p>This style is intentionally simple, some may even say primitive.</p>
-      <ul>
-        <li>Just HTML, minimal CSS, and almost no JavaScript.</li>
-        <li>No animations, no tracking, no frameworks.</li>
-        <li>Fast, accessible, and readable on any device.</li>
-      </ul>
-      <p>Maybe it does not looks Modern, but it's a style I love and I kind of miss on today's internet.</p>
-      <p>Also, if you're like me and can't stand too much motion, then welcome, this place has basically none ! \o/</p>
-    </section>
-    <hr>
-    <section id="network">
-      <h2>Where can you find me ?</h2>
-      <ul>
-        <li><a target="_blank" rel="noopener" href=https://github.com/Riley-dsv>GitHub ( Open in a new tab )</a></li>
-        <li><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/riley-dessertenne">Linkedin ( Open in a
-            new tab)</a></li>
-      </ul>
-    </section>
-    <hr>
-    <section id="project">
-      <h2>What did I do so far ?</h2>
-      <article id="project-mainstream">
-        <h3>Mainstream</h3>
-        <a target="_blank" rel="noopener" href="github.com/Riley-dsv/Mainstream">Link to the repo ( Open in a new tab
-          )</a>
-        <h4>Description</h4>
+    <section id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">Selected projects</h2>
+
+      <p>
+        A selection of projects and devlogs that document their evolution.
+      </p>
+
+      <article class="project-card">
+        <header>
+          <p class="section-label">Technical demonstration</p>
+          <h3>Mainstream</h3>
+        </header>
+
         <p>
-          A replica of a small distributed platform simulating a financial transaction being processing across a legacy
-          COBOL system to a more modern event-driven service.
-          <br><br>
-          This project aims to give me knowledge about how does legacy program actually work, about the business
-          constraint of financial services and to work more thoroughly on architecture and specs writing especially for
-          polyglot projects like this one.
+          A simplified replica of a distributed financial transaction platform,
+          connecting a legacy COBOL batch component to a modern event-driven architecture.
         </p>
-        <h4>Stack</h4>
+
+        <dl class="project-meta">
+          <div>
+            <dt>Status</dt>
+            <dd>In progress</dd>
+          </div>
+
+          <div>
+            <dt>Focus</dt>
+            <dd>Legacy integration, event streaming, transaction validation</dd>
+          </div>
+
+          <div>
+            <dt>Stack</dt>
+            <dd>COBOL, Kafka, Scala, Spring Boot, PostgreSQL, Phoenix, Docker</dd>
+          </div>
+        </dl>
+
+        <h4>What it demonstrates</h4>
         <ul>
-          <li>COBOL</li>
-          <li>Kafka</li>
-          <li>Scala</li>
-          <li>Java Sping Boot</li>
-          <li>PostgreSQL</li>
-          <li>Elixir Phoenix</li>
-          <li>Docker</li>
+          <li>Designing data flow between heterogeneous systems</li>
+          <li>Separating raw, validated, and rejected transaction paths</li>
+          <li>Documenting contracts between legacy and modern components</li>
         </ul>
-        <a aria-hidden="false" target="_self" class="button-link unavailable" href="#">Access the Project Details</a>
+        <p>
+          <a target="_blank" rel="noopener" href="https://github.com/Riley-dsv/Mainstream">
+            View source code (opens in a new tab)
+          </a>
+        </p>
+        <p>
+          <a href="projects/mainstream/">Read devlogs</a>
+        </p>
       </article>
     </section>
-  </main>
-  <footer>
-    <section id="legal">
-      <h3>Informations about this website</h3>
-      <p>This website does not track you, does not collect your data, does not use any cookies, include only necessary
-        JavaScript snippet.</p>
-      <p>This website has been made by Riley, a human being. Meaning NO AI, LLM, GPT, etc has been used while making
-        this website.</p>
-      <p>This website <a target="_blank" rel="noopener" href="https://github.com/Riley-dsv/Riley-dsv.github.io">source
-          code ( Open in a new tab )</a> and content is under the <a target="_blank" rel="noopener"
-          href=https://creativecommons.org/publicdomain/zero/1.0/deed.en>CC0-1.0 License ( Open in a new tab )</a></p>
+
+
+    <section id="writing">
+      <h2 id="writing-title">Technical writing</h2>
+
+      <p>
+        Notes and articles about software design, programming languages,
+        backend architecture, and technical experiments.
+      </p>
+
+      <article class="writing-card">
+        <p class="section-label">Incident Analysis</p>
+
+        <h3>Wifi hard roaming wpa_supplicant no systemd</h3>
+
+        <p>
+          Diagnosing unstable roaming behavior between dual-band access points in my own linux environment, causing
+          connectivity issues.
+        </p>
+
+        <a href="./articles/wifi-hard-roaming-wpa-supplicant-no-systemd.html">
+          Read article
+        </a>
+      </article>
+
+      <article class="writing-card">
+        <p class="section-label">Formalisation</p>
+
+        <h3>Basics of LDA in Dot</h3>
+
+        <p>
+          Exploring graphviz capabilities for modeling algorithm structures and execution flow.
+        </p>
+
+        <a href="./articles/basic-lda-entries-in-dot.html">
+          Read article
+        </a>
+      </article>
+
+      <article class="writing-card">
+        <p class="section-label">Technical Note</p>
+
+        <h3>Bash /dev/tcp pseudo-file</h3>
+        <p>
+          Explore Bash TCP builtin pseudo-file for network communication and api debugging without external tools such
+          as Curl, wget, bruno or postman.
+        </p>
+
+        <a href="./articles/bash-devtcp-pseudo-file.html">
+          Read article
+        </a>
+      </article>
+      <a class="standalone-link" href="./articles">View all articles</a>
     </section>
-    <a target="_top" href="#top">Jump to top</a>
+
+    <section id="profile" aria-labelledby="profile-title">
+      <h2 id="profile-title">Profile</h2>
+      <p>
+        I'm Riley (they/them), a french software developer interested in distributed systems,
+        interoperability, and backend architecture.
+      </p>
+
+      <p>
+        I enjoy understanding how systems behave once they stop being simple:
+        when data moves between services, when failure cases matter,
+        and when legacy components still need to coexist with newer ones.
+      </p>
+
+      <p>
+        During my spare time, I keep track of news in the tech industries. I document what I learn, and share it through
+        public technical writing. I aim to release most of my work into the public domain.
+      </p>
+
+      <p>
+        I also enjoy exchanging with other developers by discussing their projects, asking questions about their design
+        decisions, and receiving feedback on my own work, whether it is related to my projects or my technical writing.
+      </p>
+
+      <p>
+        Outside of programming, I enjoy literature ( currently reading <em>Blade runner</em> by Philip. K Dick ),
+        mathematics and tabletop RPGs.
+      </p>
+      <!--<a href="resources/cv" download="cv-riley-dessertenne.pdf">Download my CV !</a>-->
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Get in touch</h2>
+
+      <ul>
+        <li>
+          <a target="_blank" rel="noopener" href="https://github.com/Riley-dsv">
+            GitHub profile (opens in a new tab)
+          </a>
+        </li>
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/riley-dessertenne">
+            LinkedIn profile (opens in a new tab)
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer id="legal" aria-labelledby="legal-title">
+    <h2 id="legal-title">Legal notice</h2>
+    <p>
+      This website does not track you, does not collect your data, does not use cookies,
+      and only uses minimal JavaScript.
+    </p>
+    <p>
+      The source code and content of this website are available under the CC0-1.0 license.
+    </p>
+    <a href="#">Back to top</a>
   </footer>
 </body>
 

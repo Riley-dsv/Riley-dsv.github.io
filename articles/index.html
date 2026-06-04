@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Articles — Riley</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  <link type="text/plain" rel="author" href="https://Riley-dsv.github.io/humans.txt">
+
+  <link rel="stylesheet" href="../style/colors.css">
+  <link rel="stylesheet" href="../style/main.css">
+  <link rel="stylesheet" href="../style/layout.css">
+  <link rel="stylesheet" href="../style/typography.css">
+  <link rel="stylesheet" href="../style/navigation.css">
+  <link rel="stylesheet" href="../style/writing.css">
+  <link rel="stylesheet" href="../style/footer.css">
+</head>
+
+<body>
+  <header id="top">
+    <p class="eyebrow">Technical writing</p>
+
+    <h1>Articles</h1>
+
+    <p class="subtitle">
+      Notes, investigations, and technical writeups about software,
+      systems, networking, and programming languages.
+    </p>
+  </header>
+
+  <nav class="jump-table" aria-labelledby="navigation-title">
+    <p id="navigation-title">On this page</p>
+
+    <ol>
+      <li><a href="#investigations">Investigations</a></li>
+      <li><a href="#technical-notes">Technical notes</a></li>
+      <li><a href="#language-notes">Language internals</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="investigations" aria-labelledby="investigations-title">
+      <h2 id="investigations-title">Investigations</h2>
+
+      <article class="writing-card">
+        <p class="section-label">Incident Analysis</p>
+
+        <h3>Wifi hard roaming with wpa_supplicant without systemd</h3>
+
+        <p>
+          Diagnosing unstable roaming behavior between dual-band access points in my own linux environment, causing
+          connectivity issues.
+        </p>
+
+        <a class="standalone-link" href="./wifi-hard-roaming-wpa-supplicant-no-systemd.html">
+          Read article
+        </a>
+      </article>
+    </section>
+
+    <section id="technical-notes" aria-labelledby="technical-notes-title">
+      <h2 id="technical-notes-title">Technical notes</h2>
+
+      <article class="writing-card">
+        <p class="section-label">Low-level networking</p>
+
+        <h3>Bash /dev/tcp pseudo-file</h3>
+
+        <p>
+          Explore Bash TCP builtin pseudo-file for network communication and api debugging without external tools such
+          as Curl, wget, bruno or postman.
+        </p>
+
+        <a class="standalone-link" href="./bash-devtcp-pseudo-file.html">
+          Read article
+        </a>
+      </article>
+
+      <article class="writing-card">
+        <p class="section-label">Formalisation</p>
+
+        <h3>Basic LDA entries in dot</h3>
+
+        <p>
+          Exploring graphviz capabilities for modeling algorithm structures and execution flow.
+        </p>
+
+        <a class="standalone-link" href="./basic-lda-entries-in-dot.html">
+          Read article
+        </a>
+      </article>
+    </section>
+
+    <section id="language-notes" aria-labelledby="language-notes-title">
+      <h2 id="language-notes-title">Language internals</h2>
+
+      <article class="writing-card">
+        <p class="section-label">ECMAScript</p>
+
+        <h3>Equality comparison algorithms</h3>
+
+        <p>
+          Understanding JavaScript equality algorithms, type coercion,
+          SameValue comparison, NaN, and consequences of IEEE-754.
+        </p>
+
+        <a class="standalone-link" href="./equality-comparison-algorithms.html">
+          Read article
+        </a>
+      </article>
+
+      <article class="writing-card">
+        <p class="section-label">Java</p>
+
+        <h3>Java 16 Records</h3>
+
+        <p>
+          Explaining Java records, how they reduce boilerplate,
+          and how they compare to traditional POJOs.
+        </p>
+
+        <a class="standalone-link" href="./java-16-records.html">
+          Read article
+        </a>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <a href="../">Back to home</a>
+    <a href="#top">Back to top</a>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+.language-sh .command {
+  color: #83a598;
+}
+
+.language-sh .flag {
+  color: #d3869b;
+}
+
+.language-sh .path {
+  color: #b8bb26;
+}
+
+.language-sh .variable {
+  color: #fabd2f;
+}

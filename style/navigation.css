@@ -1,0 +1,29 @@
+.jump-table
+{
+  margin-top: 3rem;
+
+  padding-left: 1rem;
+
+  border-left: 2px solid var(--border);
+}
+
+.jump-table p
+{
+  margin-bottom: 0.75rem;
+
+  color: #cfcfcf;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.jump-table ol
+{
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.jump-table li
+{
+  margin-top: 0.35rem;
+}

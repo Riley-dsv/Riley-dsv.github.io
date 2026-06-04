@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Mainstream - Riley</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+  <link rel="icon" type="image/x-icon" href="../../resources/images/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/x-icon" href="../../resources/images/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+  
+  <link rel="stylesheet" href="../../style/colors.css">
+  <link rel="stylesheet" href="../../style/main.css">
+  <link rel="stylesheet" href="../../style/layout.css">
+  <link rel="stylesheet" href="../../style/typography.css">
+  <link rel="stylesheet" href="../../style/navigation.css">
+  <link rel="stylesheet" href="../../style/project.css">
+  <link rel="stylesheet" href="../../style/footer.css">
+  <link rel="stylesheet" href="../../style/diagram.css">
+  <link rel="stylesheet" href="../../style/highlight.css">
+  <link rel="stylesheet" href="../../style/images.css">
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Project</p>
+
+    <h1>Mainstream</h1>
+
+    <p class="subtitle">
+      A simplified replica of a distributed financial transaction platform, connecting a legacy COBOL batch component to
+      a modern event-driven architecture.
+    </p>
+  </header>
+
+  <nav class="jump-table" aria-labelledby="navigation-title">
+    <p id="navigation-title">On this page</p>
+
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="#technical-choices">Technical choices</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#devlog">Development log</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="overview">
+      <h2>Overview</h2>
+
+      <p>
+        This project simulates the modernization of a legacy batch transaction processing system. The goal is to demonstrate how a legacy system can coexist with 
+        event-driven and service-oriented components, and to introduce myself to real world constraints
+      </p>
+    </section>
+
+    <section id="architecture">
+      <h2>Architecture</h2>
+      <h3>Components</h3>
+      <ul>
+        <li><strong>COBOL Batch:</strong>
+          <p>Responsible for reading input transaction data, applying legacy-style batch
+            processing rules, and producing an output file.</p>
+        </li>
+        <li><strong>Kafka Broker:</strong>
+          <p>Responsible for transporting transaction events between producers and
+            consumers. Kafka does not contain business rules.</p>
+        </li>
+        <li><strong>Scala Validation Service:</strong>
+          <p>Responsible for consuming raw transactions, validating them, and
+            optionally enriching them before republishing.</p>
+        </li>
+        <li><strong>Java Persistence/API Service:</strong>
+          <p>Responsible for storing validated transactions in the
+            relational database and exposing them through a REST API.</p>
+        </li>
+        <li><strong>Database:</strong>
+          <p>Responsible for reading input transaction data, applying legacy-style batch
+            processing rules, and producing an output file.</p>
+        </li>
+        <li><strong>Phoenix:</strong>
+          <p>Responsible for building realtime user and intragration live data consumption.</p>
+        </li>
+      </ul>
+      <figure class="diagram">
+        <pre aria-hidden="true"></code>
+                                                                                                                                                                                                                                                              + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+                                                                                                                                                                                                                                                              '                                    Modern Service Layer                                    '
+                                                                                                                                                                                                                                                              '                                                                                            '
+                                                                                                                                                                                                                                                              '                                  HTTP REST requests                                        '
+                                                                                                                                                                                                                                                              '   +-------------------------------------------------------+                                '
+                                                                                                                                                                                                                                                              '   |                                                       |                                '
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+                         +- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +             '   |                                                       |                                '
+'                                  Legacy Boundary                                           '                         '                                       Event-Driven Core                                                                '             '   |                                                       |                                '
+'                                                                                            '                         '                                                                                                                        '             '   v                                                       |                                '
+' +------------------------------+                 +---------------------------------------+ '                         ' +------------------+             +--------------------------+                               +------------------------+ '             ' +------------------------------+                        +--------------------------------+ '
+' |    Input Transaction File    |  reads          |              COBOL Batch              | '  publishes raw events   ' |   Kafka Topic    |  consumes   | Scala Validation Service |  publishes validated events   |      Kafka Topic       | '  consumes   ' | Java Persistence/API Service |   JSON responses       |       Client / Developer       | '
+' | (Fixed-format / batch input) | --------------> | Legacy parsing   batch transformation | ' ----------------------> ' | transactions.raw | ----------> | Validation   enrichment  | ----------------------------> | transactions.validated | ' ----------> ' |     Consumer   REST API      | ---------------------> | Reads transaction data via API | '
+' +------------------------------+                 +---------------------------------------+ '                         ' +------------------+             +--------------------------+                               +------------------------+ '             ' +------------------------------+                        +--------------------------------+ '
+'                                                                                            '                         '                                                                                                                        '             '   |                                                                                        '
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+                         +- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +             '   |                               - - - - - - - - - - - - - - - - - - - - - - - - - - - - -+
+                                                                                                                                                                                                                                                              '   |                              '
+                                                                                                                                                                                                                                                              '   | writes transactions          '
+                                                                                                                                                                                                                                                              '   v                              '
+                                                                                                                                                                                                                                                              ' +------------------------------+ '
+                                                                                                                                                                                                                                                              ' |          PostgreSQL          | '
+                                                                                                                                                                                                                                                              ' | Durable transaction storage  | '
+                                                                                                                                                                                                                                                              ' +------------------------------+ '
+                                                                                                                                                                                                                                                              '                                  '
+                                                                                                                                                                                                                                                              + - - - - - - - - - - - - - - - - -+
+        </code></pre>
+        <figcaption>Figure 1 : A COBOL batch component produces transaction files, which are published to Kafka and processed by modern
+        services written in Scala and Java.</figcaption>
+      </figure>
+    </section>
+
+    <section id="technical-choices">
+      <h2>Technical choices</h2>
+      <ul>
+        
+        <li><strong>COBOL:</strong> <p>Represents the legacy batch core.</p></li>
+        <li><strong>Kafka:</strong> <p>Decouples producers and consumers.</p></li>
+        <li><strong>Scala:</strong> <p>Suitable for stream/event processing and typed validation logic.</p></li>
+        <li><strong>Java / Spring Boot:</strong> <p>Widely used for persistence and REST APIs.</p></li>
+        <li><strong>PostgreSQL:</strong> <p>Simple, reliable relational storage.</p></li>
+        <li><strong>Elixir / Phoenix:</strong> <p>Suitable for realtime data consuming and display.</p></li>
+
+      </ul>
+    </section>
+
+    <section id="stack">
+      <h2>Stack</h2>
+
+      <ul>
+        <li>COBOl</li>
+        <li>Kafka</li>
+        <li>Scala</li>
+        <li>Java Spring Boot</li>
+        <li>PostgreSQL</li>
+        <li>Elixir Phoenix</li>
+        <li>Docker</li>
+      </ul>
+    </section>
+
+    <section id="devlog">
+      <p>Empty for now</p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#">Back to top</a>
+    <a href="../../">Back to home</a>
+  </footer>
+</body>
+
+</html>

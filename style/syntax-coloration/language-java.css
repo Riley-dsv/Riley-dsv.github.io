@@ -1,0 +1,23 @@
+.language-java .keyword {
+  color: #d3869b;
+}
+
+.language-java .type {
+  color: #8ec07c;
+}
+
+.language-java .annotation {
+  color: #d79921;
+}
+
+.language-java .method {
+  color: #83a598;
+}
+
+.language-java .string {
+  color: #b8bb26;
+}
+
+.language-java .builtin {
+  color: #b294bb
+}
