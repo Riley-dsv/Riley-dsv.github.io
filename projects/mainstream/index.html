@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="../../style/diagram.css">
   <link rel="stylesheet" href="../../style/highlight.css">
   <link rel="stylesheet" href="../../style/images.css">
+  <link rel="stylesheet" href="../../style/devlog.css">
 </head>
 
 <body>
@@ -39,6 +40,7 @@
 
     <ol>
       <li><a href="#overview">Overview</a></li>
+      <li><a href="#status">Current Status</a></li>
       <li><a href="#architecture">Architecture</a></li>
       <li><a href="#technical-choices">Technical choices</a></li>
       <li><a href="#stack">Stack</a></li>
@@ -54,6 +56,22 @@
         This project simulates the modernization of a legacy batch transaction processing system. The goal is to demonstrate how a legacy system can coexist with 
         event-driven and service-oriented components, and to introduce myself to real world constraints
       </p>
+    </section>
+
+    <section id="status">
+      <h2>Current Status</h2>
+      <p>
+        The legacy batch processing component has been implemented.
+        It can read transaction files, apply business rules and generate
+        a final report.
+      </p>
+
+      <p>
+        The next phase consists of introducing the event-driven layer
+        through Kafka and decoupling the legacy batch process from
+        downstream consumers.
+      </p>
+
     </section>
 
     <section id="architecture">
@@ -77,8 +95,7 @@
             relational database and exposing them through a REST API.</p>
         </li>
         <li><strong>Database:</strong>
-          <p>Responsible for reading input transaction data, applying legacy-style batch
-            processing rules, and producing an output file.</p>
+          <p>Responsible for durable storage of processed transaction records.</p>
         </li>
         <li><strong>Phoenix:</strong>
           <p>Responsible for building realtime user and intragration live data consumption.</p>
@@ -111,8 +128,10 @@
                                                                                                                                                                                                                                                               '                                  '
                                                                                                                                                                                                                                                               + - - - - - - - - - - - - - - - - -+
         </code></pre>
-        <figcaption>Figure 1 : A COBOL batch component produces transaction files, which are published to Kafka and processed by modern
-        services written in Scala and Java.</figcaption>
+        <figcaption>
+          Figure 1 : Transactions are first processed by a legacy COBOL batch component. 
+          They are then published to Kafka, validated by a Scala service, persisted by a Java API, and finally exposed to clients through REST endpoints.
+        </figcaption>
       </figure>
     </section>
 
@@ -122,10 +141,10 @@
         
         <li><strong>COBOL:</strong> <p>Represents the legacy batch core.</p></li>
         <li><strong>Kafka:</strong> <p>Decouples producers and consumers.</p></li>
-        <li><strong>Scala:</strong> <p>Suitable for stream/event processing and typed validation logic.</p></li>
-        <li><strong>Java / Spring Boot:</strong> <p>Widely used for persistence and REST APIs.</p></li>
+        <li><strong>Scala:</strong> <p>Suitable for stream/event processing and typed validation logic and interoperable with Java.</p></li>
+        <li><strong>Spring Boot:</strong> <p>Widely used for persistence and REST APIs.</p></li>
         <li><strong>PostgreSQL:</strong> <p>Simple, reliable relational storage.</p></li>
-        <li><strong>Elixir / Phoenix:</strong> <p>Suitable for realtime data consuming and display.</p></li>
+        <li><strong>Phoenix:</strong> <p>Suitable for realtime data consuming and display.</p></li>
 
       </ul>
     </section>
@@ -134,23 +153,58 @@
       <h2>Stack</h2>
 
       <ul>
-        <li>COBOl</li>
+        <li>COBOL</li>
         <li>Kafka</li>
         <li>Scala</li>
-        <li>Java Spring Boot</li>
+        <li>Java</li>
         <li>PostgreSQL</li>
-        <li>Elixir Phoenix</li>
+        <li>Elixir</li>
         <li>Docker</li>
       </ul>
     </section>
-
     <section id="devlog">
-      <p>Empty for now</p>
+      <h2>Devlogs</h2>
+      <ol class="devlog-index">
+        <li>
+          <article>
+            <h3>
+              <a href="./devlog/phase-00.html">
+                Phase 0 - Chosing and Freezing technical choices
+              </a>
+            </h3>
+
+            <p class="devlog-meta">
+              <time datetime="2026-06-07">2026-06-07</time> &middot; Technical decision
+            </p>
+
+            <p>
+              Establishing the scope, constraints, and first modernization target of the project.
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3>
+              <a href="./devlog/phase-01.html">
+                Phase 01 - Reading and formatting a legacy file
+              </a>
+            </h3>
+
+            <p class="devlog-meta">
+            <time datetime="2026-06-07">2026-06-07</time> &middot; COBOL batch core
+            </p>
+
+            <p>
+            Legacy input parsing, transaction formatting, and final report generation.
+            </p>
+          </article>
+        </li>
+      </ol>
     </section>
   </main>
 
   <footer>
-    <a href="#">Back to top</a>
+    <a href="#">Back to top</a>&ThickSpace;
     <a href="../../">Back to home</a>
   </footer>
 </body>

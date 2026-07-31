@@ -11,9 +11,15 @@
   <priority>0.5</priority>
 </url>
 <url>
+  <loc>https://riley-dsv.github.io/projects/</loc>
+  <lastmod>2026-06-07T23:07:00+00:00</lastmod>
+  <priority>0.6</priority>
+  <changefreq>monthly</changefreq>
+</url>
+<url>
   <loc>https://riley-dsv.github.io/2b.html</loc>
   <lastmod>2026-04-28T10:08:40+00:00</latmod>
-  <priority>0.01</priority>
+  <priority>0.0</priority>
   <changefreq>never</changefreq>
 </url>
 </urlset>

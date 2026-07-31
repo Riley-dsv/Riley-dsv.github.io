@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Phase 00 - Mainstream</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-light.ico" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/x-icon" href="/resources/images/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+
+  <link rel="stylesheet" href="../../../style/colors.css">
+  <link rel="stylesheet" href="../../../style/main.css">
+  <link rel="stylesheet" href="../../../style/layout.css">
+  <link rel="stylesheet" href="../../../style/typography.css">
+  <link rel="stylesheet" href="../../../style/navigation.css">
+  <link rel="stylesheet" href="../../../style/project.css">
+  <link rel="stylesheet" href="../../../style/footer.css">
+  <link rel="stylesheet" href="../../../style/quote.css">
+  <link rel="stylesheet" href="../../../style/highlight.css">
+  <link rel="stylesheet" href="../../../style/table.css">
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Development log</p>
+
+    <h1>Phase 00 - Defining the Legacy</h1>
+
+    <p class="subtitle">
+      Establishing the scope, constraints, and first modernization target of the project.
+    </p>
+  </header>
+
+  <nav class="jump-table" aria-labelledby="navigation-title">
+    <p id="navigation-title">On this page</p>
+
+    <ol>
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#goal">Goal</a></li>
+      <li><a href="#implementation">Implementation</a></li>
+      <li><a href="#responsibility-boundaries">Responsibility boundaries</a></li>
+      <li><a href="#legacy-format">Legacy format</a></li>
+      <li><a href="#kafka-topics">Kafka topics</a></li>
+      <li><a href="#issues">Issues encountered</a></li>
+      <li><a href="#next-step">Next step</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="intro">
+      <h2>Introduction</h2>
+      <p>
+        There is a saying I love in IT :
+      </p>
+      <blockquote>
+        <p>Every modern infrastructure has three pillars; submarine cables, FOSS frameworks thanklessly
+          maintained for 20 years by two unpaid developers and very old code running on very old machines no one
+          even remembers.
+        </p>
+      </blockquote>
+      <p>
+        Legacy systems are often portrayed as relics or obsolete software to be entirely replaced. However, replacing
+        such systems is <strong>rarely a technical issue</strong>.
+        The financial cost, the operational risk, the regulatory constraints and the business priorities that
+        actually give value to the user often make a complete rewrite unrealistic.
+      </p>
+      <p>
+        This is why in the real world, you will find industries running on software older than the developers in the
+        team. And those systems are running the world, from banking systems, to social security systems they
+        are performing <strong>thousands</strong> of critical operations per day.
+      </p>
+      <p>
+        Mainstream is built around that observation.
+      </p>
+      <p>
+        I won't rewrite my bank's core system in Rust. Instead I will embrace the legacy COBOL and show how
+        <strong>you can work with the legacy, not against it</strong>
+        to create an efficient and modern event-driven architecture.
+      </p>
+    </section>
+    <section id="goal">
+      <h2>Goal</h2>
+
+      <p>
+        The goal of this phase was to define the stable contract of the pipeline before implementing anything. After
+        all, even the most obscure legacy must obey some rules.
+      </p>
+      <p>
+        This phase focuses on the boundaries of the system: The legacy transaction format, the Kafka topics used by the
+        future pipeline, the list of allowed transaction statuses, and the JSON schemas that describe the modern
+        messages.
+      </p>
+      <p>
+        This is important because the architecture is your source of truth. Implementations will evolve over time, but
+        the architecture must remain stable.
+      </p>
+      <p>
+        If a transaction file is defined as a sequence of fields separated by a pipe symbol, all future components
+        interacting with that file must be able to rely on that definition. Without this stability, you can't build
+        reliable and interoperable systems that last.
+      </p>
+      <p>
+        As it is common in system design, all decisions made during phase 0 are frozen, and become the source of truth.
+        However, to avoid locking ourselves, backward compatible changes are allowed.
+      </p>
+
+      <p>
+        Even if <strong>in theory</strong>, you can still modify phase 0 afterward, but it require an explicit revision
+        of the phase 0, and this is not something you want to do, unless there is a really good reason to do so.
+      </p>
+    </section>
+
+    <section id="implementation">
+      <h2>Implementation</h2>
+      <p>
+        The main deliverables of this phase were documentation, schemas and sample data, as stated above, no runtime
+        code for now. The current architecture is detailed on the project page. To avoid repeatition, this entry will
+        focus on the core boundaries and data format defined in this phase.
+      </p>
+      <section id="responsibility-boundaries">
+        <h3>Responsibility boundaries</h3>
+        <ul>
+          <li>COBOL handles legacy-style batch parsing and transformation.</li>
+          <li>Kafka handles event transport only.</li>
+          <li>Scala handles validation and enrichment.</li>
+          <li>Java handles persistence and REST API exposure.</li>
+          <li>PostgreSQL handles durable storage.</li>
+          <li>Phoenix handles user-facing realtime visualization only.</li>
+        </ul>
+      </section>
+      <section id="legacy-format">
+        <h3>Legacy transaction format</h3>
+        <h4>Purpose</h4>
+        <p>
+          The legacy batch input is called : <code>transaction_legacy.dat</code> it is a fixed-width sequential file
+          produced by the COBOL batch. Each line represents one raw transaction record. The file is designed to simulate
+          a legacy batch input format before transformation into modern Kafka JSON events.
+        </p>
+        <h4>Design Principle</h4>
+        <ul>
+          <li>One transaction per line.</li>
+          <li>Fixed-width positional format.</li>
+          <li>Numeric fields are zero-padded on the left.</li>
+          <li>Alphanumeric fields are space-padded on the right.</li>
+          <li>Date uses <code>YYYYMMDD</code>.</li>
+          <li>Time uses <code>HHMMSS</code>.</li>
+          <li>Monetary values are stored as integers in the smallest currency unit.</li>
+          <li>The file only contains syntactically valid raw transactions for now.</li>
+        </ul>
+        <h4>Record Layout</h4>
+        <p>
+          Each records has a total length of <strong>157 characters</strong>.
+          Space betweens logical blocks are part of the format and must be preserved.
+        </p>
+        <div class="table-wrapper">
+          <table>
+            <caption>Record layout of the legacy transaction format</caption>
+
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Length</th>
+                <th>Type</th>
+                <th>Format / Rule</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>transaction id</td>
+                <td>1</td>
+                <td>32</td>
+                <td>32</td>
+                <td>alphanumeric</td>
+                <td>unique transaction identifier, space-padded right if needed</td>
+              </tr>
+
+              <tr>
+                <td>filler-1</td>
+                <td>33</td>
+                <td>33</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>operation date</td>
+                <td>34</td>
+                <td>41</td>
+                <td>8</td>
+                <td>numeric</td>
+                <td><code>YYYYMMDD</code></td>
+              </tr>
+
+              <tr>
+                <td>filler-2</td>
+                <td>42</td>
+                <td>42</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>operation time</td>
+                <td>43</td>
+                <td>48</td>
+                <td>6</td>
+                <td>numeric</td>
+                <td><code>HHMMSS</code></td>
+              </tr>
+
+              <tr>
+                <td>filler-3</td>
+                <td>49</td>
+                <td>49</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>transaction type</td>
+                <td>50</td>
+                <td>52</td>
+                <td>3</td>
+                <td>alphanumeric</td>
+                <td>example: <code>TRF</code></td>
+              </tr>
+
+              <tr>
+                <td>filler-4</td>
+                <td>53</td>
+                <td>53</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>amount</td>
+                <td>54</td>
+                <td>65</td>
+                <td>12</td>
+                <td>numeric</td>
+                <td>integer amount in smallest currency unit, zero-padded left</td>
+              </tr>
+
+              <tr>
+                <td>filler-5</td>
+                <td>66</td>
+                <td>66</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>currency</td>
+                <td>67</td>
+                <td>69</td>
+                <td>3</td>
+                <td>alphabetic</td>
+                <td>ISO 4217, example: <code>EUR</code></td>
+              </tr>
+
+              <tr>
+                <td>filler-6</td>
+                <td>70</td>
+                <td>70</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>sender iban</td>
+                <td>71</td>
+                <td>97</td>
+                <td>27</td>
+                <td>alphanumeric</td>
+                <td>sender account identifier</td>
+              </tr>
+
+              <tr>
+                <td>filler-7</td>
+                <td>98</td>
+                <td>98</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>receiver iban</td>
+                <td>99</td>
+                <td>125</td>
+                <td>27</td>
+                <td>alphanumeric</td>
+                <td>receiver account identifier</td>
+              </tr>
+
+              <tr>
+                <td>filler-8</td>
+                <td>126</td>
+                <td>126</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>reference</td>
+                <td>127</td>
+                <td>146</td>
+                <td>20</td>
+                <td>alphanumeric</td>
+                <td>business label, space-padded right</td>
+              </tr>
+
+              <tr>
+                <td>filler-9</td>
+                <td>147</td>
+                <td>147</td>
+                <td>1</td>
+                <td>literal</td>
+                <td>space</td>
+              </tr>
+
+              <tr>
+                <td>source system</td>
+                <td>148</td>
+                <td>155</td>
+                <td>8</td>
+                <td>alphanumeric</td>
+                <td>example: <code>BATCH001</code></td>
+              </tr>
+
+              <tr>
+                <td>filler-10</td>
+                <td>156</td>
+                <td>157</td>
+                <td>2</td>
+                <td>literal</td>
+                <td>trailing spaces</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="kafka-topics">
+        <h3>Transaction topics</h3>
+        <p>
+          For Kafka to work properly we need something called topics, this is the fundamental organization unit for
+          events or messages within Kafka. In Kafka, events are organized into topics, A topic acts as a named stream of
+          messages that producers write to and consumers read from.
+        </p>
+        <p>I personnaly created 3 main topics for my Kafka system :</p>
+        <h4>transactions.raw</h4>
+        <ul>
+          <li><strong>Produced by:</strong> COBOL Batch producer</li>
+          <li><strong>Consumed by:</strong> Scala validation service</li>
+          <li><strong>Purpose:</strong> Carries raw transaction events before validation</li>
+          <li><strong>Payload contract:</strong> Raw transaction schema</li>
+        </ul>
+        <h4>transactions.validated</h4>
+        <ul>
+          <li><strong>Produced by:</strong> Scala validation service</li>
+          <li><strong>Consumed by:</strong> Java persistence / API service, Phoenix web interface</li>
+          <li><strong>Purpose:</strong> Carries validated transaction events approved for downstream use</li>
+          <li><strong>Payload contract:</strong> validated transaction schema</li>
+        </ul>
+        <h4>transactions.rejected</h4>
+        <ul>
+          <li><strong>Produced by:</strong> Scala validation service</li>
+          <li><strong>Consumed by:</strong> Phoenix web interface</li>
+          <li><strong>Purpose:</strong> Carries rejected transaction events with rejection reason</li>
+          <li><strong>Payload contract:</strong> Rejected transaction schema</li>
+        </ul>
+        <p>
+          The full contracts and exact format are available in the project repository.
+        </p>
+        <p>
+          <a target="_blank" rel="noopener"
+            href="https://github.com/Riley-dsv/Mainstream/blob/main/docs/data-transaction.md">Read the complete Kafka
+            topics contracts ( Opens in a new tab )</a>
+        </p>
+        <p>
+          Example JSON of the Kafka schemas are also available in the project repository.
+        </p>
+
+        <a target="_blank" rel="noopener" href="https://github.com/Riley-dsv/Mainstream/tree/main/schemas">Explore the
+          JSON example Kafka schemas ( Opens in a new tab )</a>
+      </section>
+    </section>
+
+    <section id="issues">
+      <h2>Issues encountered</h2>
+
+      <p>
+        The main challenge here was not the code that didn't compile, but rather deciding what should be frozen, and
+        what should remain flexible.
+      </p>
+
+      <p>
+        One might say, just freeze everything, but by doing so you lock yourself and prevent your application to
+        actually evolve or correct if you ever make a mistake. The compromise was to freeze only the external contract:
+        transaction format, Kafka topics, statuses, and JSON schemas. Internal implementation details remain free to
+        evolve during the next phases.
+      </p>
+
+      <p>
+        There is also this invisible struggle, the second hardest thing in programming :
+        Naming things, choosing name that reflects the intents, and sounds natural enough was a tidious task.
+        Fortunately I had some help from a good website called Schema.org, it give vocabulary associated with a
+        certain domain.
+      </p>
+      <p>
+        <a target="_blank" rel="noopener" href="https://schema.org">
+          Visit Schema.org website ( Opens in a new tab )
+        </a>
+      </p>
+    </section>
+
+    <section id="next-step">
+      <h2>Next step</h2>
+      <p>The next phase will start implementing the first processing step based on the contract defined here.</p>
+
+      <p>The pipeline will use the sample legacy transaction file as input, validate the expected structure, and produce
+        a normalized report ready to be parsed as JSON.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#">Back to top</a>&ThickSpace;
+    <a href="../">Back to project page</a>&ThickSpace;
+    <a href="./phase-01.html">Read the next phase</a>
+  </footer>
+</body>
+
+</html>

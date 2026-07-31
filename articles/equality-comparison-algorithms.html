@@ -92,7 +92,7 @@ return the result of the comparison ToPrimitive(x) == y.
       <cite>ECMAScript specification</cite>
     </blockquote>
     <p>Looking at the <code>ToPrimitive</code> table, the Object seek a <code>PreferredType</code> a hint about the type he seek. Here the hint is the type of <code>y</code>. The type of <code>y</code> being a Number, Javascript will call the <code>Number</code> primitive method on the object. We end up with <code>0 == 0</code> and therefore returns <code>true</code>.</p>
-    <p>Now your turn, if you want to see if you understood, what is the output of : <code>-[-3] == “3"</code> ?</p>
+    <p>Now your turn, if you want to see if you understood, what is the output of : <code>-[-3] == "3"</code> ?</p>
     <p>There is a kind of coercition also happening with <code>undefined</code>. Indeed, using the Abstract equality, <code>null</code> and <code>undefined</code> become equal. Meaning if you want to check for <code>null</code> and <code>undefined</code> at the same time. you just need to use Abstract Equality.</p>
     <pre><code class="language-ecmascript">
 <span class="keyword">if</span> ( foo == <span class="builtin">null</span> || foo == <span class="builtin">undefined</span> ) <span aria-label="is equivalent to">⇒</span> <span class="keyword">if</span> ( foo == <span class="builtin">null</span> )  
@@ -156,9 +156,9 @@ return the result of the comparison ToPrimitive(x) == y.
           Examples of expressions that produce non-standard numerical behavior.
         </figcaption>
       </figure>
-    <p class="note">
-    <strong>NOTA</strong>: Remember, here we are speaking about IEE-754 Specification, not ECMAscript real implementation.
-    </p>
+      <p class="note">
+      <strong>NOTA</strong>: Remember, here we are speaking about IEE-754 Specification, not ECMAscript real implementation.
+      </p>
 
     <p>
     Two Zeroes is a logical result of how numbers are formatted under the IEEE-754. I won't get too deep in the detail, you just must know that each number contain a sign bit. If it is set to 0 the number is positive, if it is set to 1 the number is negative. The same rule apply for 0, this is why it exists a positive 0 and a negative 0 or Two-Zeroes.
@@ -204,8 +204,8 @@ map.<span class="function">get</span>(<span class="builtin">NaN</span>);
   </main>
 
   <footer>
+    <a href="#">Back to top</a>&ThickSpace;
     <a href="index.html">Back to articles</a>
-    <a href="#">Back to top</a>
   </footer>
 </body>
 

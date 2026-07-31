@@ -1,0 +1,38 @@
+.devlog-index {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.devlog-index li {
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.devlog-index li:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.devlog-index h3 {
+  margin-bottom: 0.35rem;
+  font-size: 1.15rem;
+}
+
+.devlog-index h3 a {
+  text-decoration: none;
+}
+
+.devlog-index h3 a:hover {
+  text-decoration: underline;
+}
+
+.devlog-meta {
+  margin-bottom: 0.5rem;
+  color: #bababa;
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+}
+
+.devlog-index p:last-child {
+  margin-bottom: 0;
+}
